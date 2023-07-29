@@ -17,7 +17,7 @@ COPY ./keys/key.pem /mnt/wordpress/keys/key.pem
 
 # Production build (Smaller Image Size)
 FROM public.ecr.aws/awsguru/php:devel.82.2023.3.13.1-arm64
-COPY --from=public.ecr.aws/awsguru/aws-lambda-adapter:0.7.0-aarch64 /lambda-adapter /opt/extensions/lambda-adapter
+COPY --from=inspectorgadget12/lambda-runtime-adapter /lambda-runtime-adapter /opt/extensions/lambda-adapter
 COPY --from=builder /mnt/wordpress /mnt/wordpress
 
 # config files
