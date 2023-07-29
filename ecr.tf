@@ -20,14 +20,14 @@ resource "null_resource" "build" {
     ]
 
     command = <<-COMMAND
-        # Login to ECR (AWS STS AssumeRole)
-        aws ecr get-login-password --region ${data.aws_region.current.name} | docker login --username AWS --password-stdin ${data.aws_caller_identity.current.account_id}.dkr.ecr.${data.aws_region.current.name}.amazonaws.com
+      # Login to ECR (AWS STS AssumeRole)
+      aws ecr get-login-password --region ${data.aws_region.current.name} | docker login --username AWS --password-stdin ${data.aws_caller_identity.current.account_id}.dkr.ecr.${data.aws_region.current.name}.amazonaws.com
 
-        # Build Image
-        docker build -t ${aws_ecr_repository.ecr.repository_url}:latest . -f Dockerfile --platform linux/arm64
+      # Build Image
+      docker build -t ${aws_ecr_repository.ecr.repository_url}:latest . -f Dockerfile --platform linux/arm64
 
-        # Push Image
-        docker push ${aws_ecr_repository.ecr.repository_url}:latest
+      # Push Image
+      docker push ${aws_ecr_repository.ecr.repository_url}:latest
     COMMAND
   }
 }
